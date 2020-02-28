@@ -22,16 +22,18 @@ class MultiagentSimulation(object):
         # Parameters
         self.N_agents = N_agents  # Number of agents
         self.interval = interval  # 
-        self.xmax = xmax
-        self.ymax = ymax
+        self.xmax     = xmax
+        self.ymax     = ymax
 
-        self.fig, self. ax = plt.subplots()
-
+        # State
         self.pos_agents = (self.xmax, self.ymax) * np.random.rand(N_agents,2) # agent positions
         self.vel_agents = 0.1 * np.random.randn(N_agents,2)                   # agent velocities
-        self.ani = animation.FuncAnimation(self.fig, self.update_plot,
-                                           interval = self.interval,
-                                           init_func = self.setup_plot, blit=True)
+
+        # Animation
+        self.fig, self. ax = plt.subplots()
+        self.animation = animation.FuncAnimation(self.fig, self.update_plot,
+                                                 interval = self.interval, init_func =
+                                                 self.setup_plot, blit=True, frames = 100)
 
     def setup_plot(self):
         self.ax.set_xlim((0,self.xmax))
@@ -45,6 +47,8 @@ class MultiagentSimulation(object):
         self.scatter.set_offsets(self.pos_agents)
         return [self.scatter]
 
+    
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-N", "--n-agents", action = "store", type=int,
@@ -52,9 +56,11 @@ parser.add_argument("-N", "--n-agents", action = "store", type=int,
                     help = "number of agents to simulate")
 
 
+
 if __name__ == '__main__':
     args = parser.parse_args()
+    ms = MultiagentSimulation(N_agents = args.N_agents)
+    ms.animation.save("out.gif",dpi = 70, writer="imagemagick")
+    plt.show()
 
-    ani = MultiagentSimulation(N_agents = args.N_agents)
-    plt.show(ani.fig)
 
