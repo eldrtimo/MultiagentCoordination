@@ -4,5 +4,4 @@ This repository contains research related to the goal of enabling plannin and co
 
 Examples applications of decentralized multi-agent systems include wildfire surveillance topographical surveying, wireless provisioning for disaster relief, and autonomous aerial package delivery.
 
-## Project Organization
-
+## Examples
